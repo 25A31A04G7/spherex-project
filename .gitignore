@@ -1,0 +1,22 @@
+# Python environment
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+# Large scientific source files
+*.fits
+*.fit
+*.fts
+
+# Temporary archive and API investigation files
+site/data/*listing*.xml
+site/data/*datalink*.xml
+site/data/aws_week50_page2.xml
+site/data/aws_bucket_index.html
+
+# Editor and system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
