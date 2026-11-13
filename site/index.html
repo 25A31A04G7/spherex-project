@@ -3,51 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SPHEREx Explorer — NASA Space Apps Challenge</title>
-  <meta name="description" content="Scientific exploration dashboard for NASA's SPHEREx all-sky spectral survey observations of moving interstellar target candidate 3I/ATLAS.">
+  <title>SPHEREx Notes — Student Analysis of 3I/ATLAS Survey Data</title>
+  <meta name="description" content="A student research notebook analyzing NASA SPHEREx survey observations of moving interstellar target candidate 3I/ATLAS.">
   
-  <!-- CSS Styles -->
+  <!-- CSS Stylesheet -->
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
-  <!-- Background decorative grid -->
-  <div class="cosmic-grid"></div>
 
   <!-- Header & Navigation -->
   <header class="site-header">
     <div class="container header-inner">
       <a href="#overview" class="brand">
-        <div class="brand-icon">
-          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="9"/>
-            <path d="M3.6 9h16.8M3.6 15h16.8"/>
-            <path d="M12 3a15.3 15.3 0 0 1 4 9 15.3 15.3 0 0 1-4 9 15.3 15.3 0 0 1-4-9 15.3 15.3 0 0 1 4-9z"/>
-          </svg>
-        </div>
+        <div class="brand-icon">SPX</div>
         <div class="brand-title">
-          <span>SPHEREx Explorer</span>
-          <span class="brand-sub">NASA Space Apps Challenge</span>
+          <span>SPHEREx Notes</span>
+          <span class="brand-sub">Student Research Project</span>
         </div>
       </a>
 
       <nav class="nav-menu" id="navMenu">
         <a href="#overview" class="nav-link active">Overview</a>
-        <a href="#catalogue" class="nav-link">Observation Catalogue</a>
-        <a href="#epochs" class="nav-link">Multi-Epoch Analysis</a>
-        <a href="#diagnostics" class="nav-link">Quality & Flags</a>
+        <a href="#catalogue" class="nav-link">Observations</a>
+        <a href="#epochs" class="nav-link">Two Epochs</a>
+        <a href="#diagnostics" class="nav-link">Quality Flags</a>
         <a href="#psf-optics" class="nav-link">PSF Optics</a>
-        <a href="#calibration" class="nav-link">Calibration (QR3 Upgrade)</a>
-        <a href="#limitations" class="nav-link">Scientific Caveats</a>
+        <a href="#calibration" class="nav-link">Calibration</a>
+        <a href="#learnings" class="nav-link">What Went Wrong</a>
+        <a href="#limitations" class="nav-link">Caveats</a>
       </nav>
 
       <div class="header-actions">
-        <a href="#limitations" class="header-badge" title="Review scientific constraints and unconfirmed detection status">
-          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
-          </svg>
-          Scientific Notice
-        </a>
+        <a href="#learnings" class="header-badge" title="Student lab notes and mistakes">Lab Notes</a>
         <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle navigation">
           <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
@@ -57,78 +44,75 @@
     </div>
   </header>
 
-  <!-- Hero Section -->
+  <!-- Overview Section (Lead with the best figure, no stat strip) -->
   <section class="hero" id="overview">
     <div class="container">
-      <div class="hero-content">
-        <div class="hero-pill">
-          <span class="pulse-dot"></span>
-          <span>NASA Astrophysics Explorers Mission (SPHEREx) • Public Data Release</span>
-        </div>
-        
-        <h1 class="hero-title">
-          Exploring Interstellar Target <span class="gradient-text">3I/ATLAS</span> in SPHEREx Data
-        </h1>
-        
-        <p class="hero-desc">
-          An interactive scientific dashboard examining multi-epoch observations from NASA's 
-          <strong>SPHEREx</strong> all-sky near-infrared spectral survey. Analyze 259 moving target observations,
-          interrogate point spread function (PSF) reconstructions, evaluate pixel quality flags, and explore 
-          rigorous scientific limitations.
+      <div class="hero-meta-line">NASA SPHEREx Public Data • 3I/ATLAS Case Study</div>
+      <h1 class="hero-title">Looking for comet 3I/ATLAS in SPHEREx public survey data</h1>
+      
+      <p class="hero-prose">
+        I built this site to inspect public survey images from NASA's SPHEREx space telescope. 
+        During its 2025 all-sky survey, SPHEREx passed over the predicted coordinates of interstellar candidate 
+        3I/ATLAS twice: once in August and once in December. I wanted to see whether the comet was visible in 
+        the near-infrared detector frames.
+      </p>
+
+      <p class="hero-prose">
+        The short answer: <strong>I do not find a confirmed detection</strong>. While the December frame shows 
+        a bright spot near the expected position, inspecting the detector bitmasks showed that almost every pixel 
+        in the extraction aperture is flagged as a cosmic ray hit or detector persistence.
+      </p>
+
+      <!-- Student Project Notice -->
+      <div class="student-notice">
+        <div class="student-notice-header">Student Project Notice</div>
+        <p>
+          This is an independent analysis of public SPHEREx Level 2 data from IRSA. It is not an official NASA 
+          or Caltech finding. Both frames studied here were acquired with coarse star-tracker pointing (<code>FINAST = 0</code>).
         </p>
+      </div>
 
-        <!-- Scientific Disclaimer Notice -->
-        <div class="scientific-notice">
-          <div class="notice-icon">⚠️</div>
-          <div class="notice-text">
-            <h4>Scientific Rigor & Transparency Advisory</h4>
-            <p>
-              This investigation presents an objective evaluation of public SPHEREx observations. 
-              <strong>This analysis does not claim a confirmed detection of 3I/ATLAS.</strong> 
-              Preliminary elevated aperture flux measurements in December 2025 are heavily contaminated by detector 
-              outlier and persistence flags, and both analyzed frames operate with coarse star-tracker pointing (<code>FINAST=0</code>).
-            </p>
+      <!-- Lead Figure: Side-by-side cutouts right up front -->
+      <div class="lead-figure">
+        <div class="lead-figure-grid">
+          <div class="lead-figure-item">
+            <img 
+              src="data/august_target_zoom.png" 
+              alt="August 1 target cutout" 
+              data-zoom-img="data/august_target_zoom.png"
+              data-caption="August 1, 2025: Zoomed 11x11 cutout around 3I/ATLAS ephemeris (+). The nearest peak is 3.41 px away."
+              style="cursor: zoom-in;"
+            >
+            <div class="lead-figure-label">August 1, 2025 • Target marked with (+) • Peak offset 3.41 px</div>
+          </div>
+          <div class="lead-figure-item">
+            <img 
+              src="data/december_target_zoom.png" 
+              alt="December 14 target cutout" 
+              data-zoom-img="data/december_target_zoom.png"
+              data-caption="December 14, 2025: Zoomed 11x11 cutout showing sub-pixel peak alignment."
+              style="cursor: zoom-in;"
+            >
+            <div class="lead-figure-label">December 14, 2025 • Peak offset 0.38 px • Corrupted by artifacts</div>
           </div>
         </div>
-
-        <!-- Telemetry Stats Cards -->
-        <div class="hero-stats">
-          <div class="stat-card">
-            <div class="stat-value">259</div>
-            <div class="stat-label">Observations</div>
-            <div class="stat-sub">Spanning August & December 2025</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-value">6 Detectors</div>
-            <div class="stat-label">Spectral Channels</div>
-            <div class="stat-sub">Linear Variable Filters (0.75 – 5.0 µm)</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-value">102 Bands</div>
-            <div class="stat-label">Hyperspectral Survey</div>
-            <div class="stat-sub">Full-sky resolving power R ≈ 35–130</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-value">D3 Focus</div>
-            <div class="stat-label">Case Study Band</div>
-            <div class="stat-sub">1.63 – 2.44 µm (Near-Infrared H/K)</div>
-          </div>
-        </div>
+        <p class="figure-caption">
+          <strong>Figure 1:</strong> Target cutouts in Band 3 (1.63 – 2.44 µm). In August, the nearest peak is displaced 
+          by 3.4 pixels from the predicted position. In December, the peak lands within 0.38 pixels, but pixel-level flags 
+          reveal that the elevated brightness comes from detector artifacts.
+        </p>
       </div>
     </div>
   </section>
 
-
-
-  <!-- Interactive Observation Catalogue Explorer -->
+  <!-- Interactive Observation Catalogue -->
   <section class="section section-alt" id="catalogue">
     <div class="container">
       <div class="section-header">
-        <span class="section-badge">ObsCore VOTable Archive</span>
-        <h2 class="section-title">Interactive Observation Catalogue</h2>
+        <h2>Observation catalogue</h2>
         <p class="section-desc">
-          Browse, search, and filter all 259 verified SPHEREx observations of target 3I/ATLAS across 
-          both observation epochs and all 6 instrument detectors.
+          The IRSA archive contains 259 exposures that cross the orbital path of 3I/ATLAS across all six detectors. 
+          161 were taken in August 2025 and 98 in December 2025. You can filter by epoch or detector, or search by ID, date, or coordinates.
         </p>
       </div>
 
@@ -148,34 +132,36 @@
           </div>
         </div>
 
-        <div class="filter-group">
-          <span class="filter-label">Epoch:</span>
-          <div class="filter-pills">
-            <button class="pill-btn active" data-filter-epoch="all">All Epochs <span class="count-badge" id="totalCount">259</span></button>
-            <button class="pill-btn" data-filter-epoch="August 2025">August 2025 <span class="count-badge">161</span></button>
-            <button class="pill-btn" data-filter-epoch="December 2025">December 2025 <span class="count-badge">98</span></button>
+        <div class="filter-row">
+          <div class="filter-group">
+            <span class="filter-label">Epoch:</span>
+            <div class="filter-pills">
+              <button class="pill-btn active" data-filter-epoch="all">All Epochs <span class="count-badge" id="totalCount">259</span></button>
+              <button class="pill-btn" data-filter-epoch="August 2025">August 2025 <span class="count-badge">161</span></button>
+              <button class="pill-btn" data-filter-epoch="December 2025">December 2025 <span class="count-badge">98</span></button>
+            </div>
           </div>
-        </div>
 
-        <div class="filter-group">
-          <span class="filter-label">Detector:</span>
-          <div class="filter-pills">
-            <button class="pill-btn active" data-filter-detector="all">All Detectors</button>
-            <button class="pill-btn" data-filter-detector="D1">D1 <span style="font-size:0.7rem;opacity:0.7;">(0.75-1.12µm)</span></button>
-            <button class="pill-btn" data-filter-detector="D2">D2 <span style="font-size:0.7rem;opacity:0.7;">(1.10-1.65µm)</span></button>
-            <button class="pill-btn" data-filter-detector="D3">D3 <span style="font-size:0.7rem;opacity:0.7;">(1.63-2.44µm)</span></button>
-            <button class="pill-btn" data-filter-detector="D4">D4 <span style="font-size:0.7rem;opacity:0.7;">(2.40-3.85µm)</span></button>
-            <button class="pill-btn" data-filter-detector="D5">D5 <span style="font-size:0.7rem;opacity:0.7;">(3.81-4.43µm)</span></button>
-            <button class="pill-btn" data-filter-detector="D6">D6 <span style="font-size:0.7rem;opacity:0.7;">(4.41-5.01µm)</span></button>
+          <div class="filter-group">
+            <span class="filter-label">Detector:</span>
+            <div class="filter-pills">
+              <button class="pill-btn active" data-filter-detector="all">All</button>
+              <button class="pill-btn" data-filter-detector="D1">D1 (0.75–1.12µm)</button>
+              <button class="pill-btn" data-filter-detector="D2">D2 (1.10–1.65µm)</button>
+              <button class="pill-btn" data-filter-detector="D3">D3 (1.63–2.44µm)</button>
+              <button class="pill-btn" data-filter-detector="D4">D4 (2.40–3.85µm)</button>
+              <button class="pill-btn" data-filter-detector="D5">D5 (3.81–4.43µm)</button>
+              <button class="pill-btn" data-filter-detector="D6">D6 (4.41–5.01µm)</button>
+            </div>
           </div>
         </div>
 
         <div class="results-meta-bar">
-          <div class="results-count">
+          <div>
             Showing <strong id="resultsCount">259</strong> matching observations
           </div>
-          <div style="font-size:0.75rem; color:var(--text-muted);">
-            Click any row to inspect full astronomical metadata
+          <div>
+            Click any row to view full FITS header metadata
           </div>
         </div>
       </div>
@@ -199,7 +185,7 @@
           </tbody>
         </table>
 
-        <!-- Pagination Bar -->
+        <!-- Pagination Controls -->
         <div class="pagination-controls">
           <button class="page-btn" id="prevPageBtn" disabled>← Previous</button>
           <span id="pageIndicator" style="font-size:0.85rem; font-weight:600; color:var(--text-secondary);">Page 1</span>
@@ -209,197 +195,164 @@
     </div>
   </section>
 
-  <!-- Multi-Epoch Comparative Analysis Section -->
+  <!-- Multi-Epoch Comparative Analysis Section (Mixed Layouts) -->
   <section class="section" id="epochs">
     <div class="container">
       <div class="section-header">
-        <span class="section-badge">Detector D3 Case Studies</span>
-        <h2 class="section-title">Multi-Epoch Target Analysis</h2>
+        <h2>Comparing the August and December observations</h2>
         <p class="section-desc">
-          Rigorous comparison of the two focal SPHEREx Level 2 observations of 3I/ATLAS in Band 3 (1.63 – 2.44 µm).
-          Notice the striking contrast in spatial centroid alignment and quality flags between August and December.
+          I focused my analysis on Detector 3 (D3), covering 1.63 to 2.44 µm. That band covers the infrared 
+          water-ice absorption band near 2.0 µm, which is important for comet studies. Here is what the two exposures look like.
         </p>
       </div>
 
-      <div class="epoch-grid">
-        <!-- August Observation Card -->
-        <div class="epoch-card">
-          <div class="epoch-card-header">
-            <div>
-              <span class="epoch-tag august">August 2025 Epoch</span>
-              <h3 style="font-size: 1.15rem; margin-top: 0.35rem; font-family: var(--font-mono);">2025W31_2A_0156_1</h3>
+      <!-- Split Layout 1: Text Left, Image Right for August -->
+      <div class="split-layout">
+        <div class="split-text">
+          <h3>August 1, 2025 (2025W31_2A_0156_1)</h3>
+          <p>
+            In the August exposure, the predicted target coordinate was RA 252.663302°, Dec -17.490409°. 
+            This projects onto Detector D3 at pixel coordinate (734.3, 840.1).
+          </p>
+
+          <table class="meta-table">
+            <tr>
+              <td>Target Coordinate:</td>
+              <td>252.663302°, -17.490409°</td>
+            </tr>
+            <tr>
+              <td>WCS Projected Pixel:</td>
+              <td>(734.302, 840.148)</td>
+            </tr>
+            <tr>
+              <td>Observed Peak (11×11 box):</td>
+              <td>(733, 837) • 3.491 MJy/sr</td>
+            </tr>
+            <tr>
+              <td>Observed Peak (21×21 box):</td>
+              <td>(730, 833) • 5.437 MJy/sr</td>
+            </tr>
+            <tr>
+              <td>Central Pixel Flux:</td>
+              <td>0.684 MJy/sr (variance 7.96e-4)</td>
+            </tr>
+            <tr>
+              <td>Astrometric Solution:</td>
+              <td><code>FINAST = 0</code> (coarse star tracker)</td>
+            </tr>
+          </table>
+
+          <div class="calc-box">
+            <div class="calc-box-title">Centroid distance calculation</div>
+            <div class="calc-formula">
+              Distance = √((733 - 734.302)² + (837 - 840.148)²)<br>
+              Distance = √((-1.302)² + (-3.148)²) = <strong>3.41 pixels</strong>
             </div>
-            <span class="detector-badge badge-D3">Detector D3</span>
           </div>
 
-          <div class="epoch-img-container">
-            <img 
-              src="data/august_target_zoom.png" 
-              alt="August 3I/ATLAS Target Zoom" 
-              data-zoom-img="data/august_target_zoom.png"
-              data-caption="August 1, 2025: Zoomed cut-out showing the catalogue position (+) and the offset local peak."
-              style="cursor: zoom-in;"
-            >
-            <div class="img-overlay-badge">Click to enlarge</div>
-          </div>
-
-          <div class="epoch-meta-body">
-            <table class="meta-table">
-              <tr>
-                <td>Observation Timestamp:</td>
-                <td>2025-08-01T08:00:09.189</td>
-              </tr>
-              <tr>
-                <td>Catalogue Coordinate (RA, Dec):</td>
-                <td>252.663302°, -17.490409°</td>
-              </tr>
-              <tr>
-                <td>WCS Projected Pixel (x, y):</td>
-                <td>(734.302, 840.148)</td>
-              </tr>
-              <tr>
-                <td>Observed Peak (11×11 PSF box):</td>
-                <td>(733, 837) • 3.491 MJy/sr (3.41 px offset)</td>
-              </tr>
-              <tr>
-                <td>Observed Peak (21×21 search box):</td>
-                <td>(730, 833) • 5.437 MJy/sr (8.34 px offset)</td>
-              </tr>
-              <tr>
-                <td>Central Pixel Brightness:</td>
-                <td>0.684 MJy/sr (Variance: 7.96e-4)</td>
-              </tr>
-              <tr>
-                <td>Astrometric Status:</td>
-                <td><span style="color:var(--accent-amber); font-weight:700;">FINAST = 0</span> (Coarse spacecraft pointing)</td>
-              </tr>
-            </table>
-
-            <!-- Methodological Documentation of Offset -->
-            <div class="calculation-box">
-              <div class="calculation-title">
-                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
-                </svg>
-                Documented Centroid Offset Calculations
-              </div>
-              <div class="calculation-formula">
-                <strong>11×11 Box (PSF Fitting Window):</strong><br>
-                Distance = √((733 - 734.302)² + (837 - 840.148)²)<br>
-                Distance = √((-1.302)² + (-3.148)²) = <strong>3.41 pixels</strong><br><br>
-                <strong>21×21 Box (Wider Field Region):</strong><br>
-                Distance = √((730 - 734.302)² + (833 - 840.148)²)<br>
-                Distance = √((-4.302)² + (-7.148)²) = <strong>8.34 pixels</strong>
-              </div>
-              <div style="display:flex; justify-content:space-between; align-items:center;">
-                <span class="offset-pill high">Offsets: 3.41 px (11×11) / 8.34 px (21×21)</span>
-                <span style="font-size:0.75rem; color:var(--text-muted);">Verified from FITS data</span>
-              </div>
-            </div>
-
-            <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; margin: 0;">
-              <strong>Scientific Takeaway:</strong> In both the 11×11 extraction cut-out (peak at 733, 837) and the wider 
-              21×21 search window (peak at 730, 833), the local flux maximum is significantly displaced from the ephemeris centroid. 
-              The observed feature represents an unassociated field source or background fluctuation rather than emission aligned with 3I/ATLAS.
-            </p>
-          </div>
+          <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.5rem;">
+            The local flux peak is displaced by 3.4 pixels (about 21 arcseconds) from the comet ephemeris. 
+            It represents an unrelated background source rather than emission from 3I/ATLAS.
+          </p>
         </div>
 
-        <!-- December Observation Card -->
-        <div class="epoch-card">
-          <div class="epoch-card-header">
-            <div>
-              <span class="epoch-tag december">December 2025 Epoch</span>
-              <h3 style="font-size: 1.15rem; margin-top: 0.35rem; font-family: var(--font-mono);">2025W50_2A_0741_1</h3>
-            </div>
-            <span class="detector-badge badge-D3">Detector D3</span>
-          </div>
-
-          <div class="epoch-img-container">
-            <img 
-              src="data/december_target_zoom.png" 
-              alt="December 3I/ATLAS Target Zoom" 
-              data-zoom-img="data/december_target_zoom.png"
-              data-caption="December 14, 2025: Zoomed cut-out showing sub-pixel centroid coincidence but heavy quality flag contamination."
-              style="cursor: zoom-in;"
-            >
-            <div class="img-overlay-badge">Click to enlarge</div>
-          </div>
-
-          <div class="epoch-meta-body">
-            <table class="meta-table">
-              <tr>
-                <td>Observation Timestamp:</td>
-                <td>2025-12-14T10:58:39.198</td>
-              </tr>
-              <tr>
-                <td>Catalogue Coordinate (RA, Dec):</td>
-                <td>166.978133°, +5.226415°</td>
-              </tr>
-              <tr>
-                <td>WCS Projected Pixel (x, y):</td>
-                <td>(674.783, 1886.315)</td>
-              </tr>
-              <tr>
-                <td>Observed Local Peak (x, y):</td>
-                <td>(675, 1886)</td>
-              </tr>
-              <tr>
-                <td>Central Pixel Brightness:</td>
-                <td>8.089 MJy/sr (Variance: 9.52e-3)</td>
-              </tr>
-              <tr>
-                <td>Astrometric Status:</td>
-                <td><span style="color:var(--accent-amber); font-weight:700;">FINAST = 0</span> (Coarse pointing)</td>
-              </tr>
-            </table>
-
-            <!-- Methodological Documentation of Offset -->
-            <div class="calculation-box">
-              <div class="calculation-title">
-                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
-                </svg>
-                Documented Centroid Offset Method
-              </div>
-              <div class="calculation-formula">
-                Distance = √((x_peak - x_cat)² + (y_peak - y_cat)²)<br>
-                Distance = √((675 - 674.783)² + (1886 - 1886.315)²)<br>
-                Distance = √(0.0471 + 0.0992) = <strong>0.38 pixels</strong>
-              </div>
-              <div style="display:flex; justify-content:space-between; align-items:center;">
-                <span class="offset-pill low">Offset: 0.38 pixels</span>
-                <span style="font-size:0.75rem; color:var(--text-muted);">Bounding box: 21×21 px</span>
-              </div>
-            </div>
-
-            <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; margin: 0;">
-              <strong>Scientific Takeaway:</strong> Although the spatial coincidence is sub-pixel (0.38 px), 
-              <strong>6 of 13 aperture pixels carry the outlier flag and 1 carries detector persistence</strong>. 
-              The elevated apparent flux is dominated by instrumental artifacts, not a validated comet.
-            </p>
+        <div class="split-image">
+          <img 
+            src="data/august_target_zoom.png" 
+            alt="August 3I/ATLAS Target Cutout" 
+            data-zoom-img="data/august_target_zoom.png"
+            data-caption="August 1, 2025: Zoomed cut-out showing the catalogue position (+) and offset peak."
+            style="cursor: zoom-in;"
+          >
+          <div class="image-meta-caption">
+            August 1 cutout: ephemeris (+), peak at (733, 837). Click image to enlarge.
           </div>
         </div>
       </div>
 
-      <!-- Wide Field Context Panel -->
-      <div class="stat-card" style="padding: 1.5rem; display: flex; align-items: center; gap: 2rem; flex-wrap: wrap;">
-        <div style="flex: 1; min-width: 280px;">
-          <h4 style="font-size: 1.1rem; margin-bottom: 0.5rem;">Wide-Field Astronomical Context (August 2025)</h4>
-          <p style="font-size: 0.875rem; line-height: 1.6; color: var(--text-secondary);">
-            The SPHEREx telescope employs a 20 cm all-aluminum telescope with wide 3.5° × 11.3° fields of view.
-            The preview below illustrates the wider sky context surrounding the August 3I/ATLAS ephemeris pointing,
-            demonstrating the high density of stellar background sources in near-infrared surveys.
+      <hr>
+
+      <!-- Split Layout 2: Image Left, Text Right for December -->
+      <div class="split-layout reversed">
+        <div class="split-image">
+          <img 
+            src="data/december_target_zoom.png" 
+            alt="December 3I/ATLAS Target Cutout" 
+            data-zoom-img="data/december_target_zoom.png"
+            data-caption="December 14, 2025: Zoomed cut-out showing sub-pixel centroid coincidence."
+            style="cursor: zoom-in;"
+          >
+          <div class="image-meta-caption">
+            December 14 cutout: peak at (675, 1886) aligns within 0.38 px of ephemeris.
+          </div>
+        </div>
+
+        <div class="split-text">
+          <h3>December 14, 2025 (2025W50_2A_0741_1)</h3>
+          <p>
+            In the December exposure, 3I/ATLAS was predicted at RA 166.978133°, Dec +5.226415°. 
+            This projects onto Detector D3 at pixel coordinate (674.8, 1886.3).
+          </p>
+
+          <table class="meta-table">
+            <tr>
+              <td>Target Coordinate:</td>
+              <td>166.978133°, +5.226415°</td>
+            </tr>
+            <tr>
+              <td>WCS Projected Pixel:</td>
+              <td>(674.783, 1886.315)</td>
+            </tr>
+            <tr>
+              <td>Observed Peak:</td>
+              <td>(675, 1886) • 8.089 MJy/sr</td>
+            </tr>
+            <tr>
+              <td>Central Pixel Flux:</td>
+              <td>8.089 MJy/sr (variance 9.52e-3)</td>
+            </tr>
+            <tr>
+              <td>Astrometric Solution:</td>
+              <td><code>FINAST = 0</code> (coarse star tracker)</td>
+            </tr>
+          </table>
+
+          <div class="calc-box">
+            <div class="calc-box-title">Centroid distance calculation</div>
+            <div class="calc-formula">
+              Distance = √((675 - 674.783)² + (1886 - 1886.315)²)<br>
+              Distance = √(0.0471 + 0.0992) = <strong>0.38 pixels</strong>
+            </div>
+          </div>
+
+          <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.5rem;">
+            The spatial coincidence is close (0.38 pixels, or 2.3 arcseconds). However, 
+            6 of 13 aperture pixels carry the outlier flag and 1 carries persistence. The apparent 
+            flux is dominated by detector artifacts.
           </p>
         </div>
-        <div style="max-width: 320px; width: 100%;">
-          <img 
-            src="data/august_target_preview.png" 
-            alt="August Target Wide Field Preview" 
-            data-zoom-img="data/august_target_preview.png"
-            data-caption="Wide-field astronomical preview around August 3I/ATLAS coordinates."
-            style="width: 100%; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); cursor: zoom-in;"
-          >
+      </div>
+
+      <!-- Mixed Layout 3: Wide-field Context Panel -->
+      <div class="wide-figure">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; align-items: center;">
+          <div>
+            <h4 style="margin-bottom: 0.4rem;">Wide-field sky context (August 2025)</h4>
+            <p style="font-size: 0.88rem; line-height: 1.6; color: var(--text-secondary); margin: 0;">
+              SPHEREx uses a 20 cm telescope with wide 3.5° × 11.3° fields of view. 
+              This preview shows the sky area surrounding the August target pointing, illustrating the density 
+              of stellar background sources in near-infrared surveys.
+            </p>
+          </div>
+          <div>
+            <img 
+              src="data/august_target_preview.png" 
+              alt="August Target Wide Field Preview" 
+              data-zoom-img="data/august_target_preview.png"
+              data-caption="Wide-field sky preview around August 3I/ATLAS coordinates."
+              style="cursor: zoom-in;"
+            >
+          </div>
         </div>
       </div>
     </div>
@@ -409,323 +362,251 @@
   <section class="section section-alt" id="diagnostics">
     <div class="container">
       <div class="section-header">
-        <span class="section-badge">Quality Bitmasks & Apertures</span>
-        <h2 class="section-title">Photometry & Quality Flag Diagnostic Lab</h2>
+        <h2>Quality flags and pixel masks</h2>
         <p class="section-desc">
-          Investigation of SPHEREx 13-pixel photometry apertures and bitmask flags. 
-          Understanding why raw signal-to-noise ratios cannot be interpreted as true astrophysical detections.
+          SPHEREx provides a 32-bit integer array called <code>FLAGS</code> for each exposure. 
+          Here is what happened when I checked the pixels inside the 13-pixel photometry aperture.
         </p>
       </div>
 
-      <div class="diagnostics-grid">
-        <!-- Diagnostic Image Viewer Card -->
-        <div class="diagnostic-card">
+      <div class="split-layout">
+        <!-- Diagnostic Image Viewer Tabs -->
+        <div>
           <div class="tab-nav">
-            <button class="tab-btn active" data-tab="tab-december">December 14 Diagnostic (Contaminated)</button>
-            <button class="tab-btn" data-tab="tab-august">August 1 Diagnostic (Baseline)</button>
+            <button class="tab-btn active" data-tab="tab-december">December 14 (contaminated)</button>
+            <button class="tab-btn" data-tab="tab-august">August 1 (clean background)</button>
           </div>
 
           <div class="tab-panel active" id="tab-december">
-            <div class="diagnostic-viewer-box">
+            <div style="background:var(--bg-surface); border:1px solid var(--border-medium); border-radius:var(--radius-sm); padding:0.75rem; margin-bottom:0.75rem;">
               <img 
                 src="data/december_flag_diagnostic.png" 
                 alt="December Flag Diagnostic Plot" 
                 data-zoom-img="data/december_flag_diagnostic.png"
-                data-caption="December 14 Flag Diagnostic: 13-pixel photometry aperture displaying 6 outlier flags and 1 persistence flag."
-                style="cursor: zoom-in;"
+                data-caption="December 14 Flag Diagnostic: 13-pixel aperture displaying 6 outlier flags and 1 persistence flag."
+                style="width:100%; height:auto; display:block; cursor:zoom-in;"
               >
             </div>
-            <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.8rem; color:var(--text-muted);">
-              <span>Observation: <strong>2025W50_2A_0741_1 (D3)</strong></span>
-              <span style="color:var(--accent-rose); font-weight:600;">6 Outliers • 1 Persistence</span>
+            <div style="display:flex; justify-content:space-between; font-size:0.8rem; color:var(--text-secondary); font-family:var(--font-mono);">
+              <span>Obs: 2025W50_2A_0741_1 (D3)</span>
+              <span class="flag-pill err">6 Outliers • 1 Persistence</span>
             </div>
           </div>
 
           <div class="tab-panel" id="tab-august">
-            <div class="diagnostic-viewer-box">
+            <div style="background:var(--bg-surface); border:1px solid var(--border-medium); border-radius:var(--radius-sm); padding:0.75rem; margin-bottom:0.75rem;">
               <img 
                 src="data/august_flag_diagnostic.png" 
                 alt="August Flag Diagnostic Plot" 
                 data-zoom-img="data/august_flag_diagnostic.png"
                 data-caption="August 1 Flag Diagnostic: 13-pixel aperture showing zero outlier or persistence flags."
-                style="cursor: zoom-in;"
+                style="width:100%; height:auto; display:block; cursor:zoom-in;"
               >
             </div>
-            <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.8rem; color:var(--text-muted);">
-              <span>Observation: <strong>2025W31_2A_0156_1 (D3)</strong></span>
-              <span style="color:var(--accent-emerald); font-weight:600;">0 Outliers • 0 Persistence</span>
+            <div style="display:flex; justify-content:space-between; font-size:0.8rem; color:var(--text-secondary); font-family:var(--font-mono);">
+              <span>Obs: 2025W31_2A_0156_1 (D3)</span>
+              <span class="flag-pill ok">0 Outliers • 0 Persistence</span>
             </div>
           </div>
         </div>
 
-        <!-- Bitmask Flag Decoder -->
-        <div class="diagnostic-card">
-          <h3 style="font-size: 1.15rem; margin-bottom: 0.5rem;">SPHEREx Pipeline Quality Bitmasks</h3>
-          <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.25rem;">
-            In the SPHEREx Level 2 pipeline, each pixel in the <code>FLAGS</code> extension encodes a 32-bit bitmask indicating detector anomalies.
+        <!-- Bitmask Flag Decoder Table -->
+        <div>
+          <h3>Pipeline bitmask definitions</h3>
+          <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1rem;">
+            In SPHEREx Level 2 images, each pixel in the <code>FLAGS</code> extension encodes individual anomaly flags:
           </p>
 
-          <div class="flag-decoder-list">
-            <!-- Bit 19: Outlier -->
-            <div class="flag-item">
-              <div class="flag-item-header">
-                <span class="flag-code">Bit 19 (1 &lt;&lt; 19 = 524288)</span>
-                <span class="flag-state triggered">6 Pixels Flagged</span>
-              </div>
-              <strong style="font-size:0.85rem; color:#fff;">Transient Outlier / Cosmic Ray</strong>
-              <div class="flag-desc">
-                Triggered in December for pixels (674,1885), (675,1885), (676,1885), (674,1886), (674,1887), etc.
-                Indicates rapid, single-exposure signal spikes inconsistent with stable celestial sources.
-              </div>
-            </div>
-
-            <!-- Bit 17: Persistence -->
-            <div class="flag-item">
-              <div class="flag-item-header">
-                <span class="flag-code">Bit 17 (1 &lt;&lt; 17 = 131072)</span>
-                <span class="flag-state triggered">1 Pixel Flagged</span>
-              </div>
-              <strong style="font-size:0.85rem; color:#fff;">Detector Image Persistence</strong>
-              <div class="flag-desc">
-                Triggered for pixel (673, 1887) in December. Residual trapped electric charge from a bright star 
-                imaged in an earlier exposure leaks into current readout channels.
-              </div>
-            </div>
-
-            <!-- Bit 21: Known Source -->
-            <div class="flag-item">
-              <div class="flag-item-header">
-                <span class="flag-code">Bit 21 (1 &lt;&lt; 21 = 2097152)</span>
-                <span class="flag-state clear">Catalog Match</span>
-              </div>
-              <strong style="font-size:0.85rem; color:#fff;">Known Cataloged Source</strong>
-              <div class="flag-desc">
-                Present in both August and December central pixels. Indicates that the coordinates match a known 
-                astronomical object or Solar System ephemeris entry in the pipeline input catalogue.
-              </div>
-            </div>
-
-            <!-- Astrometric FINAST -->
-            <div class="flag-item">
-              <div class="flag-item-header">
-                <span class="flag-code">FINAST Header Keyword</span>
-                <span class="flag-state triggered">FINAST = 0</span>
-              </div>
-              <strong style="font-size:0.85rem; color:#fff;">Fine Astrometry Not Solved</strong>
-              <div class="flag-desc">
-                Both frames report FINAST = 0, indicating that fine star-catalog astrometric registration was not completed.
-                Astrometric solutions rely on coarse spacecraft star-tracker pointing without secondary fine guide star refinement.
-              </div>
-            </div>
-          </div>
+          <table class="flag-decoder-table">
+            <thead>
+              <tr>
+                <th>Bit & Mask</th>
+                <th>Meaning</th>
+                <th>Status in Aperture</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>Bit 19</code><br><span style="font-size:0.75rem; color:var(--text-muted);">1 &lt;&lt; 19 = 524288</span></td>
+                <td>
+                  <strong>Transient outlier / cosmic ray</strong><br>
+                  <span style="font-size:0.8rem; color:var(--text-secondary);">Single-exposure signal spikes inconsistent with real celestial sources.</span>
+                </td>
+                <td><span class="flag-pill err">6 pixels (Dec)</span></td>
+              </tr>
+              <tr>
+                <td><code>Bit 17</code><br><span style="font-size:0.75rem; color:var(--text-muted);">1 &lt;&lt; 17 = 131072</span></td>
+                <td>
+                  <strong>Detector persistence</strong><br>
+                  <span style="font-size:0.8rem; color:var(--text-secondary);">Residual charge from a bright star in an earlier exposure.</span>
+                </td>
+                <td><span class="flag-pill warn">1 pixel (Dec)</span></td>
+              </tr>
+              <tr>
+                <td><code>Bit 21</code><br><span style="font-size:0.75rem; color:var(--text-muted);">1 &lt;&lt; 21 = 2097152</span></td>
+                <td>
+                  Known catalog source<br>
+                  <span style="font-size:0.8rem; color:var(--text-secondary);">Coordinates match an ephemeris entry in the pipeline input catalog.</span>
+                </td>
+                <td><span class="flag-pill ok">Present in both</span></td>
+              </tr>
+              <tr>
+                <td><code>FINAST</code><br><span style="font-size:0.75rem; color:var(--text-muted);">Header keyword</span></td>
+                <td>
+                  Astrometry mode<br>
+                  <span style="font-size:0.8rem; color:var(--text-secondary);">Coarse star-tracker pointing without secondary fine guide-star registration.</span>
+                </td>
+                <td><span class="flag-pill warn">FINAST = 0</span></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
   </section>
-
-
 
   <!-- PSF Modeling & Instrument Optics Lab -->
   <section class="section" id="psf-optics">
     <div class="container">
       <div class="section-header">
-        <span class="section-badge">Optical Characterization</span>
-        <h2 class="section-title">Point Spread Function (PSF) Optics Lab</h2>
+        <h2>Instrument optics and PSF models</h2>
         <p class="section-desc">
-          SPHEREx uses an off-axis Three-Mirror Anastigmat (TMA) telescope with a Linear Variable Filter (LVF).
-          Examining the spatial and sub-pixel optical PSF models required for astronomical flux fitting.
+          SPHEREx uses an off-axis Three-Mirror Anastigmat telescope with a Linear Variable Filter. 
+          The optical response varies across each detector, and native detector pixels are wide (6.15 arcseconds).
         </p>
       </div>
 
-      <div class="psf-grid">
-        <!-- 2x2 Preparation Matrix -->
-        <div class="psf-card" style="grid-column: 1 / -1;">
-          <div class="psf-card-header">
-            <h4>Observed 11×11 Target Regions vs. Rebinned Instrumental PSF Models</h4>
-            <span class="detector-badge badge-D3">Multi-Epoch Matrix</span>
-          </div>
-          <div class="psf-img-box">
-            <img 
-              src="data/psf_fit_preparation.png" 
-              alt="PSF Fitting Preparation Matrix" 
-              data-zoom-img="data/psf_fit_preparation.png"
-              data-caption="PSF Fitting Matrix: Top row shows August observed region vs PSF; bottom row shows December observed region vs PSF."
-              style="cursor: zoom-in;"
-            >
-          </div>
-          <div class="psf-card-body">
-            <p>
-              This 2×2 diagnostic matrix illustrates the core challenge of PSF fitting on coarse 6.2-arcsec detector pixels:
-              In August (top), the observation shows an off-center background source while the PSF model is centered.
-              In December (bottom), the observed peak appears concentrated near pixel center, but its profile differs from the optical model due to cosmic ray hit morphology and single-pixel persistence.
-            </p>
-          </div>
-        </div>
+      <!-- Wide 2x2 Matrix Figure -->
+      <div class="wide-figure">
+        <img 
+          src="data/psf_fit_preparation.png" 
+          alt="PSF Fitting Preparation Matrix" 
+          data-zoom-img="data/psf_fit_preparation.png"
+          data-caption="PSF Fitting Matrix: Top row shows August observed region vs PSF; bottom row shows December observed region vs PSF."
+          style="cursor: zoom-in;"
+        >
+        <p class="figure-caption" style="margin-top: 0.75rem;">
+          <strong>Figure 2:</strong> Observed 11×11 pixel regions compared against local instrumental PSF models. 
+          In August (top), the observation shows an off-center source while the model is centered. In December (bottom), 
+          the peak is centered, but its shape differs from the optical model due to cosmic ray hits.
+        </p>
+      </div>
 
-        <!-- Rebinning Comparison -->
-        <div class="psf-card">
-          <div class="psf-card-header">
-            <h4>Native vs. Rebinned PSF Scale</h4>
-            <span style="font-size:0.75rem; color:var(--text-muted); font-family:var(--font-mono);">Sampling</span>
-          </div>
-          <div class="psf-img-box">
+      <!-- Two Column Layout: Rebinning vs Model Extractions -->
+      <div class="split-layout">
+        <div>
+          <h3>Native vs. rebinned PSF scale</h3>
+          <p style="font-size: 0.9rem; color: var(--text-secondary);">
+            The SPHEREx PSF library provides oversampled optical models on a 121-point grid across each detector. 
+            To fit actual observations, the model must be rebinned onto physical 6.2″ detector pixels while conserving 
+            total flux.
+          </p>
+          <div style="background:var(--bg-surface); border:1px solid var(--border-medium); border-radius:var(--radius-sm); padding:0.75rem;">
             <img 
               src="data/rebinned_psf_comparison.png" 
               alt="Rebinned PSF Comparison" 
               data-zoom-img="data/rebinned_psf_comparison.png"
               data-caption="Native high-resolution PSF model compared to rebinned detector pixel scale."
-              style="cursor: zoom-in;"
+              style="width:100%; height:auto; display:block; cursor:zoom-in;"
             >
-          </div>
-          <div class="psf-card-body">
-            <p>
-              The SPHEREx PSF library provides finely sampled optical models over a 121-point spatial grid across each focal plane.
-              To fit actual science observations, the oversampled PSF must be rebinned onto physical 6.2″ detector pixels while preserving exact total flux normalization.
-            </p>
           </div>
         </div>
 
-        <!-- August PSF Model -->
-        <div class="psf-card">
-          <div class="psf-card-header">
-            <h4>August Detector D3 PSF Model</h4>
-            <span class="epoch-tag august" style="font-size:0.7rem;">August 1</span>
-          </div>
-          <div class="psf-img-box">
-            <img 
-              src="data/august_target_psf.png" 
-              alt="August Target PSF" 
-              data-zoom-img="data/august_target_psf.png"
-              data-caption="Nearest optical PSF model for Detector D3 at the August target pixel coordinate."
-              style="cursor: zoom-in;"
-            >
-          </div>
-          <div class="psf-card-body">
-            <p>
-              Model extracted at detector coordinate (734, 840). Reflects the optical coma and astigmatism 
-              characteristic of the TMA optics at this focal plane edge location.
-            </p>
-          </div>
-        </div>
-
-        <!-- December PSF Model -->
-        <div class="psf-card">
-          <div class="psf-card-header">
-            <h4>December Detector D3 PSF Model</h4>
-            <span class="epoch-tag december" style="font-size:0.7rem;">December 14</span>
-          </div>
-          <div class="psf-img-box">
-            <img 
-              src="data/december_target_psf.png" 
-              alt="December Target PSF" 
-              data-zoom-img="data/december_target_psf.png"
-              data-caption="Nearest optical PSF model for Detector D3 at the December target pixel coordinate."
-              style="cursor: zoom-in;"
-            >
-          </div>
-          <div class="psf-card-body">
-            <p>
-              Model extracted at detector coordinate (675, 1886). The asymmetric energy distribution matches the 
-              nominal optical diffraction pattern at 2.0 µm for this detector coordinate.
-            </p>
+        <div>
+          <h3>Local optical models for August & December</h3>
+          <p style="font-size: 0.9rem; color: var(--text-secondary);">
+            Models extracted at detector coordinates (734, 840) and (675, 1886) reflect optical coma and astigmatism 
+            near the edge of the focal plane.
+          </p>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem;">
+            <div style="background:var(--bg-surface); border:1px solid var(--border-medium); border-radius:var(--radius-sm); padding:0.5rem;">
+              <img 
+                src="data/august_target_psf.png" 
+                alt="August Target PSF" 
+                data-zoom-img="data/august_target_psf.png"
+                data-caption="Nearest optical PSF model for Detector D3 at the August target pixel coordinate."
+                style="width:100%; height:auto; display:block; cursor:zoom-in;"
+              >
+              <div class="image-meta-caption">August model (row 179)</div>
+            </div>
+            <div style="background:var(--bg-surface); border:1px solid var(--border-medium); border-radius:var(--radius-sm); padding:0.5rem;">
+              <img 
+                src="data/december_target_psf.png" 
+                alt="December Target PSF" 
+                data-zoom-img="data/december_target_psf.png"
+                data-caption="Nearest optical PSF model for Detector D3 at the December target pixel coordinate."
+                style="width:100%; height:auto; display:block; cursor:zoom-in;"
+              >
+              <div class="image-meta-caption">December model (row 410)</div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-
-
-  <!-- Calibration Upgrade: QR2 vs QR3 ePSF Benchmark Section -->
-  <section class="section" id="calibration">
+  <!-- Calibration Upgrade: QR2 vs QR3 Effective PSF Benchmark Section -->
+  <section class="section section-alt" id="calibration">
     <div class="container">
       <div class="section-header">
-        <span class="section-badge">Calibration Upgrade &amp; Benchmarking</span>
-        <h2 class="section-title">QR2 vs. QR3 Effective PSF Calibration Benchmark</h2>
+        <h2>Calibrating the point spread function: QR2 vs QR3</h2>
         <p class="section-desc">
-          Official IRSA evaluation of Detector 3 (D3) Point Spread Functions at validated 3I/ATLAS coordinates.
-          Benchmarking the legacy QR2 exposure-averaged PSF against the official QR3 empirical pixel-convolved ePSF.
+          In late 2025, the SPHEREx pipeline team released Quick Release 3 (QR3). For Detector 3, QR3 replaced 
+          the older QR2 exposure-averaged PSF with an empirical, pixel-convolved effective PSF (ePSF). 
+          Here is how the two models compare at my target coordinates.
         </p>
       </div>
 
-      <!-- Official IRSA Recommendation & Educational Scope Card -->
-      <div class="calibration-alert-card">
-        <div class="calib-alert-badge">
-          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-          </svg>
-          Official IRSA Calibration Notice
-        </div>
-        <div class="calib-alert-content">
-          <h4>QR3 Empirical ePSF Officially Supersedes QR2 PSF</h4>
+      <!-- IRSA Recommendation Note -->
+      <div class="student-notice">
+        <div class="student-notice-header">IRSA Recommendation</div>
+        <p>
+          The official <strong>QR3 empirical ePSF</strong> supersedes the legacy QR2 PSF and is recommended by IRSA 
+          for all SPHEREx scientific analysis. My comparison here is for calibration benchmarking; the models have different 
+          physical definitions and are not drop-in substitutes.
+        </p>
+      </div>
+
+      <!-- 3-Model Definition Cards -->
+      <div class="calib-model-row">
+        <div class="calib-model-card">
+          <div class="model-num">Model 1 • 10× Oversampled</div>
+          <h4>QR2 exposure-averaged PSF</h4>
           <p>
-            The official <strong>QR3 empirical pixel-convolved ePSF</strong> supersedes the legacy QR2 PSF and is 
-            recommended by IRSA for all SPHEREx scientific analysis, including re-reduction of QR2 images.
+            Baseline QR2 model. Incorporates optics and average jitter, <strong>deconvolved for detector pixel response</strong> 
+            to let users apply custom pixel integration.
           </p>
-          <p style="margin-top: 0.5rem; font-size: 0.85rem; color: #94a3b8;">
-            <em>Educational &amp; Methodological Scope:</em> This comparison demonstrates the physical impact of detector 
-            pixel-response convolution and empirical on-sky modeling. It does <strong>not</strong> imply that QR2 and 
-            QR3 models are scientifically interchangeable for quantitative photometry.
+          <div class="model-meta">101 × 101 grid • 0.615″/subpixel</div>
+        </div>
+
+        <div class="calib-model-card">
+          <div class="model-num">Model 2 • 5× Common Grid</div>
+          <h4>QR2 reconstructed model</h4>
+          <p>
+            Educational test: QR2 exposure-averaged PSF convolved with an idealized 1×1 native pixel boxcar kernel.
           </p>
+          <div class="model-meta">33 × 33 grid • 1.230″/subpixel</div>
+        </div>
+
+        <div class="calib-model-card recommended">
+          <div class="model-num">Model 3 • Recommended</div>
+          <h4>QR3 empirical ePSF</h4>
+          <p>
+            Official QR3 product derived from on-sky stellar stacks, inherently including subpixel-resolved detector integration.
+          </p>
+          <div class="model-meta">33 × 33 grid • 1.230″/subpixel</div>
         </div>
       </div>
 
-      <!-- Approved 3-Model Definition Cards -->
-      <div class="model-cards-grid">
-        <div class="model-def-card">
-          <div class="model-card-header">
-            <span class="model-chip model-chip-qr2">Model 1</span>
-            <span class="model-res-badge">10× Oversampled</span>
-          </div>
-          <h4>QR2 exposure-averaged effective PSF</h4>
-          <p>
-            Baseline QR2 model. Incorporates telescope optical response and average spacecraft pointing jitter, 
-            <strong>deconvolved for detector pixel response</strong> to permit user re-convolution.
-          </p>
-          <div class="model-meta-tag">Sampling: 0.615″/subpixel • 101×101 Grid</div>
-        </div>
-
-        <div class="model-def-card highlight-border">
-          <div class="model-card-header">
-            <span class="model-chip model-chip-reconst">Model 2</span>
-            <span class="model-res-badge">5× Common Grid</span>
-          </div>
-          <h4>QR2 reconstructed pixel-convolved model</h4>
-          <p>
-            Methodological reconstruction: QR2 exposure-averaged PSF convolved with a centered, idealized 1×1 native pixel 
-            boxcar kernel. <em>(Idealized educational reconstruction, not an official calibration product).</em>
-          </p>
-          <div class="model-meta-tag">Sampling: 1.230″/subpixel • 33×33 Grid</div>
-        </div>
-
-        <div class="model-def-card recommended-border">
-          <div class="model-card-header">
-            <span class="model-chip model-chip-qr3">Model 3 • Recommended</span>
-            <span class="model-res-badge">5× Oversampled</span>
-          </div>
-          <h4>QR3 empirical pixel-convolved ePSF</h4>
-          <p>
-            Official QR3 calibration product. Derived directly from on-sky stellar stacks, inherently incorporating 
-            subpixel-resolved detector pixel integration.
-          </p>
-          <div class="model-meta-tag">Sampling: 1.230″/subpixel • 33×33 Grid</div>
-        </div>
-      </div>
-
-      <!-- Epoch Selector Tabs & Inspection Box -->
-      <div class="calib-viewer-card">
-        <div class="calib-viewer-header">
-          <div class="calib-tab-group">
-            <button class="calib-tab-btn active" data-calib-tab="calib-tab-august">
-              <span class="pulse-dot" style="background:#38bdf8;"></span>
-              August 2025 (λ = 2.07 µm • Row 179)
-            </button>
-            <button class="calib-tab-btn" data-calib-tab="calib-tab-december">
-              <span class="pulse-dot" style="background:#c084fc;"></span>
-              December 2025 (λ = 1.68 µm • Row 410)
-            </button>
-          </div>
-          <div class="calib-scale-badge">Nominal Scale: 6.15″/detector pixel</div>
+      <!-- Switcher Tabs & Comparison Figures -->
+      <div>
+        <div class="calib-tab-group">
+          <button class="calib-tab-btn active" data-calib-tab="calib-tab-august">
+            August 2025 (λ = 2.07 µm • Row 179)
+          </button>
+          <button class="calib-tab-btn" data-calib-tab="calib-tab-december">
+            December 2025 (λ = 1.68 µm • Row 410)
+          </button>
         </div>
 
         <!-- August Tab Panel -->
@@ -735,16 +616,15 @@
               src="data/qr3_comparison_v2/august_qr2_qr3_comparison.png" 
               alt="August 2025 QR2 vs QR3 ePSF Comparison" 
               data-zoom-img="data/qr3_comparison_v2/august_qr2_qr3_comparison.png"
-              data-caption="August 2025 (2025W31_2A_0156_1D3, λ = 2.0655 µm, Zone Row 179): 4-panel comparison showing QR2 exposure-averaged PSF (resampled 5×), QR3 empirical ePSF (5×), optical difference, and pixel-convolved residual."
+              data-caption="August 2025 (2025W31_2A_0156_1D3, λ = 2.0655 µm, Zone Row 179): 4-panel comparison."
               style="cursor: zoom-in;"
             >
           </div>
-          <div class="calib-panel-desc">
-            <strong>August 2025 (2025W31_2A_0156_1D3 • Detector D3, CWAVE = 2.0655 µm, Zone Row 179):</strong>
-            Panel 1 shows the QR2 exposure-averaged PSF (resampled to 5×). Panel 2 shows the official QR3 empirical ePSF.
-            Panel 3 shows the optical difference (empirical ePSF minus deconvolved QR2). Panel 4 shows the residual difference
-            after re-applying the 1×1 native pixel boxcar convolution (RMS = 0.00055).
-          </div>
+          <p style="font-size:0.85rem; color:var(--text-secondary); line-height:1.5;">
+            August 2025 (Detector D3, Row 179, λ = 2.0655 µm): Panel 1 shows QR2 exposure-averaged PSF (resampled 5×). 
+            Panel 2 shows QR3 empirical ePSF. Panel 3 shows the optical difference. Panel 4 shows the residual difference after 
+            re-applying the 1×1 pixel boxcar convolution (RMS = 0.00055).
+          </p>
         </div>
 
         <!-- December Tab Panel -->
@@ -754,339 +634,346 @@
               src="data/qr3_comparison_v2/december_qr2_qr3_comparison.png" 
               alt="December 2025 QR2 vs QR3 ePSF Comparison" 
               data-zoom-img="data/qr3_comparison_v2/december_qr2_qr3_comparison.png"
-              data-caption="December 2025 (2025W50_2A_0741_1D3, λ = 1.6759 µm, Zone Row 410): 4-panel comparison showing QR2 exposure-averaged PSF (resampled 5×), QR3 empirical ePSF (5×), optical difference, and pixel-convolved residual."
+              data-caption="December 2025 (2025W50_2A_0741_1D3, λ = 1.6759 µm, Zone Row 410): 4-panel comparison."
               style="cursor: zoom-in;"
             >
           </div>
-          <div class="calib-panel-desc">
-            <strong>December 2025 (2025W50_2A_0741_1D3 • Detector D3, CWAVE = 1.6759 µm, Zone Row 410):</strong>
-            Panel 1 shows the QR2 exposure-averaged PSF. Panel 2 shows the official QR3 empirical ePSF.
-            Panel 3 shows the empirical minus deconvolved difference. Panel 4 shows the pixel-convolved residual (RMS = 0.00045).
-          </div>
+          <p style="font-size:0.85rem; color:var(--text-secondary); line-height:1.5;">
+            December 2025 (Detector D3, Row 410, λ = 1.6759 µm): Panel 1 shows QR2 PSF. Panel 2 shows QR3 ePSF. 
+            Panel 3 shows the optical difference. Panel 4 shows the pixel-convolved residual (RMS = 0.00045).
+          </p>
         </div>
 
-        <!-- Numerical Telemetry Comparison Table -->
-        <div class="calib-telemetry-wrapper">
-          <h4 class="calib-table-title">Validated Numerical Metric Comparison</h4>
-          <div class="table-responsive">
-            <table class="calib-table" id="calibMetricsTable">
-              <thead>
-                <tr>
-                  <th style="width:34%;">Metric</th>
-                  <th style="width:22%;">QR2 Exp-Avg PSF (10×)</th>
-                  <th style="width:22%;">QR2 Reconstructed (5×)</th>
-                  <th style="width:22%;">QR3 Empirical ePSF (5×)</th>
-                </tr>
-              </thead>
-              <!-- August Telemetry Data -->
-              <tbody id="calibTbodyAugust">
-                <tr>
-                  <td>Array Dimensions &amp; Sampling</td>
-                  <td>101 × 101 (0.615″/px)</td>
-                  <td>33 × 33 (1.230″/px)</td>
-                  <td>33 × 33 (1.230″/px)</td>
-                </tr>
-                <tr>
-                  <td>Total Integrated Flux</td>
-                  <td>1.000000</td>
-                  <td>0.998974</td>
-                  <td>1.000000</td>
-                </tr>
-                <tr>
-                  <td>Flux in r ≤ 3.0 px (18.45″)</td>
-                  <td>0.996055</td>
-                  <td>0.995015</td>
-                  <td>0.985979</td>
-                </tr>
-                <tr>
-                  <td>Aperture Flux Fraction (r ≤ 3.0 px)</td>
-                  <td><span style="color:#34d399; font-weight:600;">99.61%</span></td>
-                  <td><span style="color:#34d399; font-weight:600;">99.60%</span></td>
-                  <td><span style="color:#38bdf8; font-weight:600;">98.60%</span></td>
-                </tr>
-                <tr>
-                  <td>Raw Subpixel Peak Value</td>
-                  <td>0.011451</td>
-                  <td>0.023962</td>
-                  <td>0.027194</td>
-                </tr>
-                <tr>
-                  <td>Peak Density (flux / native px²)</td>
-                  <td>1.1451</td>
-                  <td>0.5991</td>
-                  <td>0.6798</td>
-                </tr>
-                <tr>
-                  <td>Centroid Offset (r ≤ 3.0 px)</td>
-                  <td>(-0.558″, -0.168″)</td>
-                  <td>(-0.555″, -0.165″)</td>
-                  <td>(-0.147″, +0.196″)</td>
-                </tr>
-                <tr>
-                  <td>FWHM Gaussian Core (r ≤ 1.5 px)</td>
-                  <td>5.20″ (0.845 px)</td>
-                  <td>7.19″ (1.169 px)</td>
-                  <td>6.78″ (1.103 px)</td>
-                </tr>
-                <tr>
-                  <td>FWHM Empirical (Profile Crossing)</td>
-                  <td>4.93″ (0.801 px)</td>
-                  <td>7.25″ (1.179 px)</td>
-                  <td>6.77″ (1.101 px)</td>
-                </tr>
-                <tr>
-                  <td>Central Native Science Pixel</td>
-                  <td>61.02%</td>
-                  <td>44.81%</td>
-                  <td>47.36%</td>
-                </tr>
-              </tbody>
-              <!-- December Telemetry Data -->
-              <tbody id="calibTbodyDecember" style="display:none;">
-                <tr>
-                  <td>Array Dimensions &amp; Sampling</td>
-                  <td>101 × 101 (0.615″/px)</td>
-                  <td>33 × 33 (1.230″/px)</td>
-                  <td>33 × 33 (1.230″/px)</td>
-                </tr>
-                <tr>
-                  <td>Total Integrated Flux</td>
-                  <td>1.000000</td>
-                  <td>0.999165</td>
-                  <td>1.000000</td>
-                </tr>
-                <tr>
-                  <td>Flux in r ≤ 3.0 px (18.45″)</td>
-                  <td>0.996904</td>
-                  <td>0.995982</td>
-                  <td>0.987242</td>
-                </tr>
-                <tr>
-                  <td>Aperture Flux Fraction (r ≤ 3.0 px)</td>
-                  <td><span style="color:#34d399; font-weight:600;">99.69%</span></td>
-                  <td><span style="color:#34d399; font-weight:600;">99.68%</span></td>
-                  <td><span style="color:#38bdf8; font-weight:600;">98.72%</span></td>
-                </tr>
-                <tr>
-                  <td>Raw Subpixel Peak Value</td>
-                  <td>0.012069</td>
-                  <td>0.024902</td>
-                  <td>0.027504</td>
-                </tr>
-                <tr>
-                  <td>Peak Density (flux / native px²)</td>
-                  <td>1.2069</td>
-                  <td>0.6226</td>
-                  <td>0.6876</td>
-                </tr>
-                <tr>
-                  <td>Centroid Offset (r ≤ 3.0 px)</td>
-                  <td>(-0.599″, -0.240″)</td>
-                  <td>(-0.596″, -0.239″)</td>
-                  <td>(-0.288″, -0.011″)</td>
-                </tr>
-                <tr>
-                  <td>FWHM Gaussian Core (r ≤ 1.5 px)</td>
-                  <td>5.09″ (0.828 px)</td>
-                  <td>7.09″ (1.152 px)</td>
-                  <td>6.53″ (1.061 px)</td>
-                </tr>
-                <tr>
-                  <td>FWHM Empirical (Profile Crossing)</td>
-                  <td>4.87″ (0.791 px)</td>
-                  <td>7.20″ (1.171 px)</td>
-                  <td>7.02″ (1.141 px)</td>
-                </tr>
-                <tr>
-                  <td>Central Native Science Pixel</td>
-                  <td>63.43%</td>
-                  <td>46.36%</td>
-                  <td>51.16%</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <!-- Dual Analysis Diagnostics: Radial Profiles & 5x5 Native Rebinning -->
-      <div class="calib-dual-grid">
-        <!-- Card 1: Radial Profiles & Enclosed Energy -->
-        <div class="calib-diagnostic-card">
-          <div class="calib-diag-header">
-            <h4>Surface Brightness Density &amp; Normalized Enclosed Energy</h4>
-            <span class="diag-tag">Radial Distribution</span>
-          </div>
-          <div class="calib-diag-img">
-            <img 
-              src="data/qr3_comparison_v2/radial_profile_comparison.png" 
-              alt="Radial Surface Brightness and Enclosed Energy Profiles" 
-              data-zoom-img="data/qr3_comparison_v2/radial_profile_comparison.png"
-              data-caption="Detector D3 Radial Profiles: Top panels show azimuthal mean surface brightness density; bottom panels show aperture-normalized enclosed energy curves EE(r)/EE(18.45″)."
-              style="cursor: zoom-in;"
-            >
-          </div>
-          <div class="calib-diag-body">
-            <p>
-              <strong>Azimuthal Profiles:</strong> Top panels show mean surface brightness density in units of 
-              <code>flux / (native pixel)²</code>. Note how the pixel-convolved reconstruction (green dashed) flattens 
-              the central cusp, closely tracing the empirical QR3 profile (red).
-            </p>
-            <p style="margin-top:0.5rem;">
-              <strong>Aperture-Normalized Enclosed Energy:</strong> Bottom panels evaluate spatial concentration normalized 
-              strictly at <code>r = 3.0 native pixels (18.45″)</code>, reaching 1.0 at the aperture boundary. 
-              <em>(Distinguish aperture-normalized EE from absolute total flux containment, which is 98.6% for QR3 and 99.6% for QR2).</em>
-            </p>
-          </div>
+        <!-- Telemetry Data Table -->
+        <div class="table-responsive">
+          <table class="calib-table" id="calibMetricsTable">
+            <thead>
+              <tr>
+                <th style="width:34%;">Metric</th>
+                <th style="width:22%;">QR2 Exp-Avg (10×)</th>
+                <th style="width:22%;">QR2 Reconstructed (5×)</th>
+                <th style="width:22%;">QR3 Empirical (5×)</th>
+              </tr>
+            </thead>
+            <!-- August Telemetry Data -->
+            <tbody id="calibTbodyAugust">
+              <tr>
+                <td>Array Dimensions &amp; Sampling</td>
+                <td>101 × 101 (0.615″/px)</td>
+                <td>33 × 33 (1.230″/px)</td>
+                <td>33 × 33 (1.230″/px)</td>
+              </tr>
+              <tr>
+                <td>Total Integrated Flux</td>
+                <td>1.000000</td>
+                <td>0.998974</td>
+                <td>1.000000</td>
+              </tr>
+              <tr>
+                <td>Flux in r ≤ 3.0 px (18.45″)</td>
+                <td>0.996055</td>
+                <td>0.995015</td>
+                <td>0.985979</td>
+              </tr>
+              <tr>
+                <td>Aperture Flux Fraction (r ≤ 3.0 px)</td>
+                <td>99.61%</td>
+                <td>99.60%</td>
+                <td>98.60%</td>
+              </tr>
+              <tr>
+                <td>Raw Subpixel Peak Value</td>
+                <td>0.011451</td>
+                <td>0.023962</td>
+                <td>0.027194</td>
+              </tr>
+              <tr>
+                <td>Peak Density (flux / native px²)</td>
+                <td>1.1451</td>
+                <td>0.5991</td>
+                <td>0.6798</td>
+              </tr>
+              <tr>
+                <td>Centroid Offset (r ≤ 3.0 px)</td>
+                <td>(-0.558″, -0.168″)</td>
+                <td>(-0.555″, -0.165″)</td>
+                <td>(-0.147″, +0.196″)</td>
+              </tr>
+              <tr>
+                <td>FWHM Gaussian Core (r ≤ 1.5 px)</td>
+                <td>5.20″ (0.845 px)</td>
+                <td>7.19″ (1.169 px)</td>
+                <td>6.78″ (1.103 px)</td>
+              </tr>
+              <tr>
+                <td>FWHM Empirical (Profile Crossing)</td>
+                <td>4.93″ (0.801 px)</td>
+                <td>7.25″ (1.179 px)</td>
+                <td>6.77″ (1.101 px)</td>
+              </tr>
+              <tr>
+                <td>Central Native Science Pixel</td>
+                <td>61.02%</td>
+                <td>44.81%</td>
+                <td>47.36%</td>
+              </tr>
+            </tbody>
+            <!-- December Telemetry Data -->
+            <tbody id="calibTbodyDecember" style="display:none;">
+              <tr>
+                <td>Array Dimensions &amp; Sampling</td>
+                <td>101 × 101 (0.615″/px)</td>
+                <td>33 × 33 (1.230″/px)</td>
+                <td>33 × 33 (1.230″/px)</td>
+              </tr>
+              <tr>
+                <td>Total Integrated Flux</td>
+                <td>1.000000</td>
+                <td>0.999165</td>
+                <td>1.000000</td>
+              </tr>
+              <tr>
+                <td>Flux in r ≤ 3.0 px (18.45″)</td>
+                <td>0.996904</td>
+                <td>0.995982</td>
+                <td>0.987242</td>
+              </tr>
+              <tr>
+                <td>Aperture Flux Fraction (r ≤ 3.0 px)</td>
+                <td>99.69%</td>
+                <td>99.68%</td>
+                <td>98.72%</td>
+              </tr>
+              <tr>
+                <td>Raw Subpixel Peak Value</td>
+                <td>0.012069</td>
+                <td>0.024902</td>
+                <td>0.027504</td>
+              </tr>
+              <tr>
+                <td>Peak Density (flux / native px²)</td>
+                <td>1.2069</td>
+                <td>0.6226</td>
+                <td>0.6876</td>
+              </tr>
+              <tr>
+                <td>Centroid Offset (r ≤ 3.0 px)</td>
+                <td>(-0.599″, -0.240″)</td>
+                <td>(-0.596″, -0.239″)</td>
+                <td>(-0.288″, -0.011″)</td>
+              </tr>
+              <tr>
+                <td>FWHM Gaussian Core (r ≤ 1.5 px)</td>
+                <td>5.09″ (0.828 px)</td>
+                <td>7.09″ (1.152 px)</td>
+                <td>6.53″ (1.061 px)</td>
+              </tr>
+              <tr>
+                <td>FWHM Empirical (Profile Crossing)</td>
+                <td>4.87″ (0.791 px)</td>
+                <td>7.20″ (1.171 px)</td>
+                <td>7.02″ (1.141 px)</td>
+              </tr>
+              <tr>
+                <td>Central Native Science Pixel</td>
+                <td>63.43%</td>
+                <td>46.36%</td>
+                <td>51.16%</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
 
-        <!-- Card 2: Centered 5x5 Native Detector Pixelation -->
-        <div class="calib-diagnostic-card">
-          <div class="calib-diag-header">
-            <h4>Centered 5×5 Native Detector Pixelation</h4>
-            <span class="diag-tag">Science Detector Scale</span>
-          </div>
-          <div class="calib-diag-img">
-            <img 
-              src="data/qr3_comparison_v2/detector_native_rebin_comparison.png" 
-              alt="Detector Native Rebin Comparison" 
-              data-zoom-img="data/qr3_comparison_v2/detector_native_rebin_comparison.png"
-              data-caption="Physical Native Detector Pixelation: 5×5 science detector pixels (6.15″/pixel) comparing QR2 exposure-averaged PSF, QR3 empirical ePSF, and difference residuals."
-              style="cursor: zoom-in;"
-            >
-          </div>
-          <div class="calib-diag-body">
-            <p>
-              <strong>Native Pixel Integration:</strong> Evaluated on a centered 5×5 footprint of physical detector pixels 
-              (<code>6.15″/pixel</code>). For a star centered on a science pixel, the deconvolved QR2 model concentrates 
-              61–63% of flux into the central pixel.
+        <!-- Dual Diagnostics: Radial Profiles & 5x5 Pixelation -->
+        <div class="split-layout">
+          <div>
+            <h4>Radial profiles & enclosed energy</h4>
+            <div style="background:var(--bg-surface); border:1px solid var(--border-medium); border-radius:var(--radius-sm); padding:0.75rem; margin-top:0.5rem;">
+              <img 
+                src="data/qr3_comparison_v2/radial_profile_comparison.png" 
+                alt="Radial Surface Brightness and Enclosed Energy Profiles" 
+                data-zoom-img="data/qr3_comparison_v2/radial_profile_comparison.png"
+                data-caption="Detector D3 Radial Profiles: Mean surface brightness and aperture-normalized enclosed energy."
+                style="width:100%; height:auto; display:block; cursor:zoom-in;"
+              >
+            </div>
+            <p style="font-size:0.85rem; color:var(--text-secondary); margin-top:0.5rem;">
+              Top panels show azimuthal mean surface brightness density in units of flux / (pixel)². 
+              The pixel-convolved model (dashed green) flattens the core, tracing the empirical QR3 curve (red).
             </p>
-            <p style="margin-top:0.5rem;">
-              <strong>Empirical Agreement:</strong> In the empirical QR3 ePSF, the central native pixel captures 
-              <strong>47.4%</strong> (August) and <strong>51.2%</strong> (December), closely matching our reconstructed 
-              pixel-convolved model (44.8% and 46.4%).
+          </div>
+
+          <div>
+            <h4>Centered 5×5 detector pixelation</h4>
+            <div style="background:var(--bg-surface); border:1px solid var(--border-medium); border-radius:var(--radius-sm); padding:0.75rem; margin-top:0.5rem;">
+              <img 
+                src="data/qr3_comparison_v2/detector_native_rebin_comparison.png" 
+                alt="Detector Native Rebin Comparison" 
+                data-zoom-img="data/qr3_comparison_v2/detector_native_rebin_comparison.png"
+                data-caption="5×5 science detector pixels (6.15″/pixel) comparing QR2, QR3, and residuals."
+                style="width:100%; height:auto; display:block; cursor:zoom-in;"
+              >
+            </div>
+            <p style="font-size:0.85rem; color:var(--text-secondary); margin-top:0.5rem;">
+              Evaluated on physical 6.15″ pixels. The empirical QR3 central pixel captures 47.4% (Aug) and 51.2% (Dec), 
+              matching our reconstructed model (44.8% and 46.4%).
             </p>
           </div>
         </div>
-      </div>
 
-      <!-- Cometary Target Morphology Notice -->
-      <div class="comet-morphology-card">
-        <div class="comet-card-icon">☄️</div>
-        <div class="comet-card-content">
-          <h4>Crucial Target Limitation: Extended Morphology of 3I/ATLAS</h4>
+        <!-- Target Coma Note -->
+        <div class="student-notice" style="margin-top:1.5rem;">
+          <div class="student-notice-header">Target Limitation: Extended Cometary Coma</div>
           <p>
-            Comet 3I/ATLAS possesses a diffuse, extended cometary coma. 
-            <strong>Neither the QR2 point-spread model nor the QR3 empirical ePSF represents an extended cometary coma.</strong> 
-            Point-source profile fitting will systematically underestimate total coma flux and leave over-subtraction residuals 
-            at the central cusp. Accurate cometary extraction requires a convolution of the ePSF with a physical surface brightness coma model.
+            Comet 3I/ATLAS has an extended coma. Both QR2 and QR3 models describe <strong>point sources</strong> (stars). 
+            Fitting an ePSF directly to an extended comet will underestimate total coma flux and leave over-subtraction residuals.
           </p>
         </div>
       </div>
-
     </div>
   </section>
 
-  <!-- Scientific Limitations & Rigor Section -->
-  <section class="section section-alt" id="limitations">
+  <!-- What I Learned / What Went Wrong Section -->
+  <section class="section" id="learnings">
     <div class="container">
-      <div class="limitations-wrapper">
-        <div class="limitations-header">
-          <span class="limitations-badge">Mandatory Science Standard</span>
-          <h2 style="font-size: 1.85rem; color: #fff;">Scientific Limitations, Caveats & Methodology</h2>
+      <div class="section-header">
+        <h2>What I learned and what went wrong</h2>
+        <p class="section-desc">
+          Working with raw space telescope data was much messier than textbook problem sets. 
+          Here are five practical lessons from this project.
+        </p>
+      </div>
+
+      <div class="learnings-list">
+        <div class="learning-entry">
+          <div class="learning-num">Lesson 1</div>
+          <h3>I almost fooled myself with the December peak</h3>
+          <p>
+            When I first plotted the December cutout, the local peak was only 0.38 pixels from the predicted 
+            coordinates of 3I/ATLAS. It had a high apparent signal-to-noise ratio and looked like an obvious detection. 
+            Only after reading the pipeline manual and checking the <code>FLAGS</code> extension did I discover that 
+            6 of the 13 pixels in the aperture were cosmic ray outliers, and another was image persistence from an earlier frame. 
+            Without checking pixel masks, it is dangerously easy to mistake an artifact for a discovery.
+          </p>
         </div>
 
-        <p style="font-size: 1.05rem; color: #e2e8f0; line-height: 1.7;">
-          In accordance with NASA astrophysics standards and Space Apps scientific integrity guidelines,
-          all findings in this application are strictly transparent regarding observational uncertainties:
-        </p>
+        <div class="learning-entry">
+          <div class="learning-num">Lesson 2</div>
+          <h3>My radial profile script crashed on NaNs</h3>
+          <p>
+            When measuring the empirical full width at half maximum (FWHM) from radial profiles, my Python script 
+            kept returning <code>NaN</code>. SPHEREx detector pixels are large (6.15 arcseconds), so the radial bins near 
+            the core had very few samples. The interpolation failed to find where the profile crossed 50% because the bins 
+            were non-monotonic. I had to sort the profile points, enforce monotonicity, and use a 2D Gaussian fit as a fallback.
+          </p>
+        </div>
 
-        <div class="limitations-grid">
-          <!-- Item 1 -->
-          <div class="limitation-item">
-            <h4>
-              <span style="color:var(--accent-rose);">✖</span>
-              No Claim of Confirmed Detection
-            </h4>
-            <p>
-              This investigation does <strong>not</strong> report a verified detection of interstellar candidate 3I/ATLAS.
-              Interstellar object identification requires multi-wavelength confirmation, verifiable orbital motion across multiple distinct visits, and high-fidelity point spread function fitting.
-            </p>
-          </div>
+        <div class="learning-entry">
+          <div class="learning-num">Lesson 3</div>
+          <h3>I was confused by why QR2 and QR3 looked so different</h3>
+          <p>
+            When I first plotted the QR2 PSF alongside the new QR3 ePSF, QR2 had a much sharper core and a higher peak 
+            (61% vs 47% central pixel flux). I wondered if the telescope optics had degraded. Then I re-read the IRSA explanatory 
+            supplement: QR2 is an optical model deconvolved for detector pixels, while QR3 is an empirical ePSF measured from 
+            real stars. When I convolved QR2 with an idealized 1×1 pixel boxcar, the two models matched within 0.05% RMS.
+          </p>
+        </div>
 
-          <!-- Item 2 -->
-          <div class="limitation-item">
-            <h4>
-              <span style="color:var(--accent-amber);">⚠️</span>
-              Astrometric Solution (FINAST = 0)
-            </h4>
-            <p>
-              Both August and December primary observations have <code>FINAST = 0</code> in their FITS headers.
-              This indicates that fine star-catalog astrometric registration was not applied, leaving the coordinate solution dependent on spacecraft star-tracker pointing without secondary fine guide star astrometric refinement.
-            </p>
-          </div>
+        <div class="learning-entry">
+          <div class="learning-num">Lesson 4</div>
+          <h3>The web browser could not handle 71 MB FITS cubes</h3>
+          <p>
+            My first prototype tried to parse full SPHEREx Level 2 FITS files in JavaScript. Each file is around 71 megabytes, 
+            containing multi-plane images, variance maps, and bitmasks. The browser ran out of memory on mobile devices and 
+            took 10 seconds to load on desktop. I switched to pre-processing the cutouts, flag masks, and calibration plots 
+            with Python offline, and serving lightweight JSON metadata for the search table.
+          </p>
+        </div>
 
-          <!-- Item 3 -->
-          <div class="limitation-item">
-            <h4>
-              <span style="color:var(--accent-amber);">⚠️</span>
-              Detector Artifacts & Persistence
-            </h4>
-            <p>
-              The apparent high signal-to-noise ratio in December is heavily contaminated: 6 aperture pixels carry outlier flags 
-              (<code>1 &lt;&lt; 19</code>) and 1 carries image persistence (<code>1 &lt;&lt; 17</code>).
-              Raw aperture sums in the presence of detector artifacts cannot be treated as real astronomical flux.
-            </p>
-          </div>
-
-          <!-- Item 4 -->
-          <div class="limitation-item">
-            <h4>
-              <span style="color:var(--accent-cyan);">ⓘ</span>
-              Aperture Photometry vs. PSF Fitting
-            </h4>
-            <p>
-              Standard fixed circular apertures (radius = 2.0 pixels) in coarse-sampled instruments (6.2″/pixel) suffer from 
-              aperture loss, background confusion, and sub-pixel centroid jitter. Accurate photometry requires full 2D forward-modeled PSF fitting.
-            </p>
-          </div>
-
-          <!-- Item 5 -->
-          <div class="limitation-item">
-            <h4>
-              <span style="color:var(--accent-cyan);">ⓘ</span>
-              Single-Band D3 Focus
-            </h4>
-            <p>
-              These case studies focus on Detector D3 (1.63 – 2.44 µm). A robust astronomical assessment requires co-evaluating all 
-              6 detectors (D1 to D6) to search for correlated color signatures and verify physical spectral energy distributions.
-            </p>
-          </div>
-
-          <!-- Item 6 -->
-          <div class="limitation-item">
-            <h4>
-              <span style="color:var(--accent-cyan);">ⓘ</span>
-              Moving Target Ephemeris Drift
-            </h4>
-            <p>
-              Ephemeris coordinates for 3I/ATLAS vary rapidly as a moving solar system/interstellar body.
-              Any small timing jitter or orbital refinement propagates directly into pixel-level coordinate expectations.
-            </p>
-          </div>
+        <div class="learning-entry">
+          <div class="learning-num">Lesson 5</div>
+          <h3>Coarse spacecraft pointing makes small offsets ambiguous</h3>
+          <p>
+            Both exposures analyzed here have <code>FINAST = 0</code> in their FITS headers. This means fine star-tracker 
+            registration was not completed, and the coordinates rely on coarse attitude control. With 6.2-arcsecond pixels, 
+            a pointing uncertainty of just 2 to 3 arcseconds moves the target centroid by half a pixel. You cannot evaluate 
+            moving target ephemeris without accounting for pointing telemetry.
+          </p>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- Scientific Limitations & Caveats Section -->
+  <section class="section section-alt" id="limitations">
+    <div class="container">
+      <div class="section-header">
+        <h2>Scientific caveats and limitations</h2>
+        <p class="section-desc">
+          To keep this project honest and transparent, here is a summary of the key observational limitations on this analysis.
+        </p>
+      </div>
 
+      <div class="caveats-list">
+        <div class="caveat-box">
+          <h4>1. No confirmed detection</h4>
+          <p>
+            This project does <strong>not</strong> report a verified detection of 3I/ATLAS. Confirming an interstellar object 
+            requires multi-epoch motion tracking, consistent colors across multiple bands, and clean PSF fitting.
+          </p>
+        </div>
+
+        <div class="caveat-box">
+          <h4>2. Coarse pointing mode (FINAST = 0)</h4>
+          <p>
+            Both primary exposures carry <code>FINAST = 0</code>, indicating that secondary fine guide star registration was not solved. 
+            Coordinate solutions rely on coarse spacecraft star-tracker pointing.
+          </p>
+        </div>
+
+        <div class="caveat-box">
+          <h4>3. Detector artifacts in December</h4>
+          <p>
+            The elevated flux in December is heavily contaminated by 6 outlier flags and 1 persistence flag in the aperture. 
+            It cannot be used as an astronomical flux measurement.
+          </p>
+        </div>
+
+        <div class="caveat-box">
+          <h4>4. Aperture photometry limits</h4>
+          <p>
+            Circular aperture sums on 6.2″ pixels suffer from sub-pixel centroid shifts and background contamination. 
+            Precise flux extraction requires forward PSF modeling.
+          </p>
+        </div>
+
+        <div class="caveat-box">
+          <h4>5. Single-detector focus</h4>
+          <p>
+            This study focused on Detector D3 (1.63 – 2.44 µm). A complete astronomical assessment requires checking all 
+            six detectors (D1 to D6) for consistent spectral signatures.
+          </p>
+        </div>
+
+        <div class="caveat-box">
+          <h4>6. Moving target ephemeris drift</h4>
+          <p>
+            As a fast-moving body, small timing offsets in orbital ephemerides shift the expected target coordinate 
+            across detector pixels.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- Observation Detail Modal -->
   <div class="modal-backdrop" id="obsModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 id="modalTitle" style="font-size: 1.15rem; color: #fff;">Observation Inspector</h3>
-        <button class="modal-close-btn" id="modalCloseBtn" aria-label="Close modal">✕</button>
+        <h3 id="modalTitle">Observation Details</h3>
+        <button class="modal-close-btn" id="modalCloseBtn" aria-label="Close modal">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
       </div>
       <div class="modal-body" id="modalBody">
         <!-- Populated dynamically via catalogue-explorer.js -->
@@ -1096,10 +983,12 @@
 
   <!-- High-Res Image Viewer Modal -->
   <div class="modal-backdrop" id="imageViewerModal" role="dialog" aria-modal="true">
-    <div class="modal-content" style="max-width: 900px; background: #000; border: 1px solid var(--border-medium);">
-      <div class="modal-header" style="background: rgba(12, 18, 34, 0.95); border-bottom: 1px solid var(--border-subtle);">
-        <h3 id="modalImageCaption" style="font-size: 1rem; color: var(--text-primary);">Image Preview</h3>
-        <button class="modal-close-btn" id="imageModalCloseBtn" aria-label="Close image modal">✕</button>
+    <div class="modal-content" style="max-width: 900px;">
+      <div class="modal-header">
+        <h3 id="modalImageCaption">Image Preview</h3>
+        <button class="modal-close-btn" id="imageModalCloseBtn" aria-label="Close image modal">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
       </div>
       <div style="padding: 1rem; text-align: center;">
         <img id="modalImageDisplay" src="" alt="Enlarged view" style="max-width: 100%; max-height: 75vh; border-radius: var(--radius-sm); display: inline-block;">
@@ -1112,21 +1001,16 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-col">
-          <div class="brand" style="margin-bottom: 1rem;">
-            <div class="brand-icon" style="width: 2rem; height: 2rem;">
-              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <circle cx="12" cy="12" r="9"/>
-                <path d="M3.6 9h16.8M3.6 15h16.8"/>
-              </svg>
-            </div>
+          <div class="brand" style="margin-bottom: 0.75rem;">
+            <div class="brand-icon">SPX</div>
             <div class="brand-title">
-              <span style="font-size: 1.1rem;">SPHEREx Explorer</span>
-              <span class="brand-sub">NASA Space Apps Challenge</span>
+              <span>SPHEREx Notes</span>
+              <span class="brand-sub">Student Research Project</span>
             </div>
           </div>
-          <p style="font-size: 0.85rem; line-height: 1.6; max-width: 440px;">
-            Developed for the NASA Space Apps Challenge to democratize access to public SPHEREx survey data,
-            promote scientific integrity in astronomy, and provide open diagnostic tools for moving target research.
+          <p style="font-size: 0.88rem; line-height: 1.6; max-width: 440px;">
+            An independent student project analyzing public SPHEREx survey observations of candidate 3I/ATLAS. 
+            Built with vanilla HTML, CSS, and JavaScript. Tested on public Level 2 archive data from IRSA.
           </p>
         </div>
 
@@ -1141,13 +1025,16 @@
         </div>
 
         <div class="footer-col">
-          <h5>Scientific Standards</h5>
+          <h5>Notebook Sections</h5>
           <ul class="footer-links">
-            <li><a href="#calibration">QR3 Calibration Benchmark</a></li>
-            <li><a href="#limitations">Limitations & Caveats</a></li>
-            <li><a href="#diagnostics">Aperture Flagging Diagnostics</a></li>
-            <li><a href="#psf-optics">TMA Optical PSF Rebinning</a></li>
-            <li><a href="#epochs">Centroid Offset Verification</a></li>
+            <li><a href="#overview">Overview & Figure 1</a></li>
+            <li><a href="#catalogue">Observation Catalogue (259)</a></li>
+            <li><a href="#epochs">August vs December Frames</a></li>
+            <li><a href="#diagnostics">Quality Bitmask Flags</a></li>
+            <li><a href="#psf-optics">Optical PSF Rebinning</a></li>
+            <li><a href="#calibration">QR2 vs QR3 Benchmark</a></li>
+            <li><a href="#learnings">What I Learned & Mistakes</a></li>
+            <li><a href="#limitations">Caveats & Limitations</a></li>
           </ul>
         </div>
       </div>
@@ -1156,8 +1043,8 @@
         <div>
           Based on public SPHEREx Level 2 observations from NASA/IPAC IRSA. Not an official NASA or Caltech announcement.
         </div>
-        <div style="font-family: var(--font-mono); color: var(--accent-cyan);">
-          259 Verified Catalogue Observations • Vanilla HTML/CSS/JS
+        <div style="font-family: var(--font-mono); color: var(--accent);">
+          259 Observations • Static HTML/CSS/JS
         </div>
       </div>
     </div>
